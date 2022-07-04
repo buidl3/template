@@ -1,0 +1,13 @@
+version: "3.9"
+services:
+  modules:
+    build: .
+    depends_on:
+      - db
+  db:
+    image: "timescale/timescaledb:latest-pg14"
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: postgres
+    restart: unless-stopped

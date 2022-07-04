@@ -1,0 +1,23 @@
+{
+  "name": "@buidl3/template",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev:psql": "docker-compose exec db psql -U postgres"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^4.7.2",
+    "@buidl3/pm2": "^0.0.0",
+    "@slonik/migrator": "^0.11.2",
+    "dotenv": "^16.0.1",
+    "pm2": "^5.2.0"
+  },
+  "dependencies": {
+    "@buidl3/core": "^0.0.0",
+    "slonik": "^28.1.0"
+  }
+}
