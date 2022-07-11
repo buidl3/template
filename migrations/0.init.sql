@@ -1,5 +1,25 @@
 /* Schemas */
 
+CREATE TABLE blocks (
+  bl_hash VARCHAR(66) NOT NULL,
+  bl_parent VARCHAR(66) NOT NULL,
+
+  bl_number BIGSERIAL NOT NULL,
+  bl_timestamp TIMESTAMP,
+  bl_chain SMALLINT NOT NULL,
+
+  bl_extra JSONB,
+  bl_raw JSONB,
+  PRIMARY KEY (bl_number, bl_hash, bl_chain)
+);
+
+CREATE INDEX bl_idx_chain ON blocks (bl_chain);
+CREATE INDEX bl_idx_hash ON blocks (bl_hash);
+CREATE INDEX bl_idx_range ON blocks (bl_number);
+CREATE INDEX bl_idx_date ON blocks (bl_timestamp);
+
+SELECT create_hypertable('blocks', 'bl_number', chunk_time_interval => 330000);
+
 CREATE TABLE transactions (
   tx_block BIGSERIAL NOT NULL,
   tx_hash VARCHAR(66) NOT NULL,
@@ -19,6 +39,7 @@ CREATE TABLE transactions (
   tx_chain SMALLINT NOT NULL,
 
   tx_extra JSONB,
+  tx_raw JSONB,
   PRIMARY KEY (tx_block, tx_hash, tx_chain)
 );
 
@@ -40,6 +61,7 @@ CREATE TABLE events (
   ev_chain SMALLINT NOT NULL,
 
   ev_extra JSONB,
+  ev_raw JSONB,
   PRIMARY KEY (ev_block, ev_bhash, ev_index, ev_chain)
 );
 
@@ -91,6 +113,6 @@ BEGIN
 END;
 $trigger$ LANGUAGE plpgsql;
 
-/* Triggers */
+
 CREATE TRIGGER ct_rehydrate AFTER UPDATE ON contracts 
 FOR EACH ROW EXECUTE PROCEDURE notify_trigger('ct_rehydrate');
