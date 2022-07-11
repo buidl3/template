@@ -10,11 +10,11 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "typescript": "^4.7.2",
-    "@buidl3/pm2": "^0.0.0",
+    "@buidl3/pm2": "^0.0.1",
     "@slonik/migrator": "^0.11.2",
     "dotenv": "^16.0.1",
-    "pm2": "^5.2.0"
+    "pm2": "^5.2.0",
+    "typescript": "^4.7.2"
   },
   "dependencies": {
     "@buidl3/core": "^0.0.0",
